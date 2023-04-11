@@ -224,7 +224,9 @@ namespace Dotmim.Sync.MySql.Builders
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+
+            // TVI change 2
+            p.DbType = DbType.String;
             p.Size = 36;
             command.Parameters.Add(p);
 
@@ -339,7 +341,9 @@ namespace Dotmim.Sync.MySql.Builders
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+
+            // TVI change 2
+            p.DbType = DbType.String;
             command.Parameters.Add(p);
 
             p = command.CreateParameter();
@@ -493,8 +497,10 @@ namespace Dotmim.Sync.MySql.Builders
             command.Parameters.Add(p);
 
             p = command.CreateParameter();
+
+            // TVI change 2
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
             command.Parameters.Add(p);
 
             p = command.CreateParameter();
@@ -593,7 +599,10 @@ namespace Dotmim.Sync.MySql.Builders
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+
+            // TVI change 2
+            p.DbType = DbType.String;
+            // p.DbType = DbType.Guid;
             p.Size = 36;
             command.Parameters.Add(p);
 
@@ -659,7 +668,11 @@ namespace Dotmim.Sync.MySql.Builders
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+
+            // TVI change 2
+            p.DbType = DbType.String;
+
+            // p.DbType = DbType.Guid;
             p.Size = 36;
             command.Parameters.Add(p);
             

@@ -587,7 +587,25 @@ namespace Dotmim.Sync
                 await this.InterceptAsync(new ExecuteCommandArgs(context, command, dbCommandType, connection, transaction),
                     progress, cancellationToken).ConfigureAwait(false);
 
-                rowAppliedCount = await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                var cmd_params = command.Parameters;
+                foreach(var param in cmd_params )
+                {
+                    var par = param as DbParameter;
+                    if(par.DbType == DbType.Guid) 
+                    {
+                        par.DbType = DbType.String;
+                        par.Size = 36;
+                        par.Value = par.Value.ToString();
+                    }
+                }
+
+                try
+                {
+                    rowAppliedCount = await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                } catch(Exception ex) { 
+                    Console.WriteLine(ex.ToString());
+                }
+
 
                 // Check if we have a return value instead
                 var syncRowCountParam = syncAdapter.GetParameter(command, "sync_row_count");

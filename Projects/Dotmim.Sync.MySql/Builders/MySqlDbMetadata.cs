@@ -52,6 +52,7 @@ namespace Dotmim.Sync.MySql.Builders
                 "time" => DbType.Time,
                 "timestamp" => DbType.DateTime,
                 "text" or "set" or "enum" or "nchar" or "nvarchar" or "varchar" or "json" => stringDbType,
+                // TVI change 2
                 "char" => columnDefinition.MaxLength == 36 ? DbType.Guid : stringDbType,
 
                 _ => throw new Exception($"this db type {columnDefinition.GetDbType()} for column {columnDefinition.ColumnName} is not supported"),
@@ -60,7 +61,9 @@ namespace Dotmim.Sync.MySql.Builders
 
         public override object GetOwnerDbType(SyncColumn columnDefinition) => columnDefinition.OriginalTypeName.ToLowerInvariant() switch
         {
-            "char" => columnDefinition.MaxLength == 36 ? MySqlDbType.Guid : MySqlDbType.String,
+            // TVI change 2 
+            "char" => columnDefinition.MaxLength == 36 ? MySqlDbType.Guid :
+                MySqlDbType.String,
             "guid" => MySqlDbType.Guid,
             "json" => MySqlDbType.JSON,
             "string" => MySqlDbType.String,
@@ -377,6 +380,7 @@ namespace Dotmim.Sync.MySql.Builders
 #elif MYSQL
             var originalProvider = MySqlSyncProvider.ProviderType;
 #endif
+            // TVI (36)
             if (column.GetDbType() == DbType.Guid)
                 return "(36)";
 

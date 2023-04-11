@@ -106,10 +106,25 @@ namespace Dotmim.Sync
             }
             else if (typeOfT == typeof(byte[]))
             {
-                if (typeOfU == typeof(string))
-                    return (T)Convert.ChangeType(Convert.FromBase64String((string)value), typeOfT, provider);
-                else
-                    return (T)Convert.ChangeType(BitConverter.GetBytes((dynamic)value), typeOfT, provider);
+                try
+                {
+                    if (typeOfU == typeof(string) && (value as string).EndsWith("=="))
+                        return (T)Convert.ChangeType(Convert.FromBase64String((string)value), typeOfT, provider);
+                    else
+                    {
+                        // TVI change 3                        
+                        Guid guid = Guid.Parse(value.ToString());
+                        var byteArr = guid.FlipEndian();
+                        // var byteArr = guid.ToByteArray();
+
+                        return (T)Convert.ChangeType(byteArr, typeOfT, provider);
+                    }
+                    //return (T)Convert.ChangeType(BitConverter.GetBytes((dynamic)value), typeOfT, provider);
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
             }
             else if (typeConverter.CanConvertFrom(typeOfT))
                 return (T)Convert.ChangeType(typeConverter.ConvertFrom(value), typeOfT, provider);

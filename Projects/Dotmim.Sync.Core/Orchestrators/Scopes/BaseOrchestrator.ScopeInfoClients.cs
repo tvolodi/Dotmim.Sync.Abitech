@@ -314,7 +314,7 @@ namespace Dotmim.Sync
         {
             var scopeInfoClient = new ScopeInfoClient
             {
-                Id = reader.GetGuid(reader.GetOrdinal("sync_scope_id")),
+                Id = Guid.Parse(reader.GetString(reader.GetOrdinal("sync_scope_id"))),
                 Name = reader["sync_scope_name"] as string,
                 Hash = reader["sync_scope_hash"] as string,
                 LastSync = reader["scope_last_sync"] != DBNull.Value ? reader.GetDateTime(reader.GetOrdinal("scope_last_sync")) : null,
