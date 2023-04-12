@@ -178,7 +178,7 @@ namespace Dotmim.Sync
             // Dotmim.Sync parameters
             DbSyncAdapter.SetParameterValue(command, "sync_force_write", forceWrite ? 1 : 0);
             DbSyncAdapter.SetParameterValue(command, "sync_min_timestamp", lastTimestamp.HasValue ? (object)lastTimestamp.Value : DBNull.Value);
-            DbSyncAdapter.SetParameterValue(command, "sync_scope_id", id.HasValue ? (object)id.Value : DBNull.Value);
+            DbSyncAdapter.SetParameterValue(command, "sync_scope_id", id.HasValue ? id.Value.ToString() : DBNull.Value);
             DbSyncAdapter.SetParameterValue(command, "sync_row_is_tombstone", isDeleted);
         }
 

@@ -259,7 +259,24 @@ namespace Dotmim.Sync
                         // Set the special parameters for update
                         syncAdapter.AddScopeParametersValues(command, message.SenderScopeId, message.LastTimestamp, applyType == DataRowState.Deleted, false);
 
-                        var rowAppliedCount = await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        var rowAppliedCount = 0;
+                        var commandParameters = command.Parameters;
+                        foreach(var param in commandParameters)
+                        {
+                            if (param is not DbParameter { DbType: DbType.Guid } par) continue;
+                            par.DbType = DbType.String;
+                            par.Size = 36;
+                            par.Value = par.Value.ToString();
+                        }
+
+                        try
+                        {
+                            rowAppliedCount = await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        }
+                        catch(Exception ex)
+                        { 
+                            Console.WriteLine(ex.ToString());
+                        }
 
                         // Check if we have a return value instead
                         var syncRowCountParam = DbSyncAdapter.GetParameter(command, "sync_row_count");

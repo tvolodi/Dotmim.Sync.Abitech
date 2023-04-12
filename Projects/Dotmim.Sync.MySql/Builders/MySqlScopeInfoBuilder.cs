@@ -295,7 +295,7 @@ namespace Dotmim.Sync.MySql.Builders
             var p0 = command.CreateParameter();
             p0.ParameterName = "@sync_scope_id";
             p0.DbType = DbType.String;
-            p0.Size = -1;
+            p0.Size = 36;
             command.Parameters.Add(p0);
 
             return command;
@@ -415,7 +415,7 @@ namespace Dotmim.Sync.MySql.Builders
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
             p.Size = 36;
             command.Parameters.Add(p);
 

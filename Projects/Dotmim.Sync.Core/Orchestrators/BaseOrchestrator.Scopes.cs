@@ -348,7 +348,7 @@ namespace Dotmim.Sync
         {
             var scopeInfo = new ScopeInfo
             {
-                Id = reader.GetGuid(reader.GetOrdinal("sync_scope_id")),
+                Id = Guid.Parse(reader.GetString(reader.GetOrdinal("sync_scope_id"))),
                 Name = reader["sync_scope_name"] as string,
                 Schema = reader["sync_scope_schema"] == DBNull.Value ? null : JsonConvert.DeserializeObject<SyncSet>((string)reader["sync_scope_schema"]),
                 Setup = reader["sync_scope_setup"] == DBNull.Value ? null : JsonConvert.DeserializeObject<SyncSetup>((string)reader["sync_scope_setup"]),
@@ -380,7 +380,7 @@ namespace Dotmim.Sync
         {
             var serverScopeInfo = new ServerHistoryScopeInfo
             {
-                Id = reader.GetGuid(reader.GetOrdinal("sync_scope_id")),
+                Id = Guid.Parse(reader.GetString(reader.GetOrdinal("sync_scope_id"))),
                 Name = reader["sync_scope_name"] as string,
                 LastSync = reader["scope_last_sync"] != DBNull.Value ? (DateTime?)reader.GetDateTime(reader.GetOrdinal("scope_last_sync")) : null,
                 LastSyncDuration = reader["scope_last_sync_duration"] != DBNull.Value ? reader.GetInt64(reader.GetOrdinal("scope_last_sync_duration")) : 0L,

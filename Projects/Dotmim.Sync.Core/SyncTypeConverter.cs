@@ -98,12 +98,23 @@ namespace Dotmim.Sync
                 if (TimeSpan.TryParse(value.ToString(), provider, out TimeSpan q))
                     return (T)Convert.ChangeType(q, typeOfT, provider);
             }
-            else if (typeOfT == typeof(byte[]))
+            else if (typeOfT == typeof(byte[]) && value is string stringValue)
             {
-                if (typeOfU == typeof(string))
-                    return (T)Convert.ChangeType(Convert.FromBase64String((string)value), typeOfT, provider);
-                else
-                    return (T)Convert.ChangeType(BitConverter.GetBytes((dynamic)value), typeOfT, provider);
+                try
+                {
+                    if (typeOfU == typeof(string) && stringValue.EndsWith("=="))
+                        return (T)Convert.ChangeType(Convert.FromBase64String(stringValue), typeOfT, provider);
+                    else
+                    {                     
+                        var guid = Guid.Parse(stringValue);
+                        return (T)Convert.ChangeType(guid.FlipEndian(), typeOfT, provider);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
             }
             else if (typeConverter.CanConvertFrom(typeOfT))
                 return (T)Convert.ChangeType(typeConverter.ConvertFrom(value), typeOfT, provider);

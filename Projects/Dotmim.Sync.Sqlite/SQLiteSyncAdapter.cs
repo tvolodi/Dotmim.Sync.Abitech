@@ -128,7 +128,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
 
 
@@ -161,7 +162,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
 
 
@@ -194,7 +196,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
 
         }
@@ -215,7 +218,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
 
         }
@@ -236,7 +240,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
 
             p = command.CreateParameter();
@@ -262,7 +267,8 @@ namespace Dotmim.Sync.Sqlite
 
             p = command.CreateParameter();
             p.ParameterName = "@sync_scope_id";
-            p.DbType = DbType.Guid;
+            p.DbType = DbType.String;
+            p.Size = 36;
             command.Parameters.Add(p);
         }
 
